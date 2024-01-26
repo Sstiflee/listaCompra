@@ -1,9 +1,11 @@
 package adrian.belarte.listacompra;
 
 import android.content.DialogInterface;
+import android.content.SharedPreferences;
 import android.os.Bundle;
 
 import com.google.android.material.snackbar.Snackbar;
+import com.google.gson.Gson;
 
 import androidx.appcompat.app.AlertDialog;
 import androidx.appcompat.app.AppCompatActivity;
@@ -18,6 +20,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 
 import adrian.belarte.listacompra.ProductAdapter.ProductAdapter;
+import adrian.belarte.listacompra.configuracion.Constantes;
 import adrian.belarte.listacompra.databinding.ActivityMainBinding;
 import adrian.belarte.listacompra.modelos.Product;
 
@@ -37,12 +40,18 @@ public class MainActivity extends AppCompatActivity {
     private ProductAdapter adapter;
     private RecyclerView.LayoutManager layoutManager;
 
+    private SharedPreferences sp;
+    private Gson gson;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
+
+        sp = getSharedPreferences(Constantes.DATOS, MODE_PRIVATE);
+        gson = new Gson();
         
         productList = new ArrayList<>();
         
